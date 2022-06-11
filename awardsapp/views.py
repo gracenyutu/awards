@@ -24,7 +24,7 @@ def signup(request):
             return redirect('index')
     else:
         form = SignupForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 def search(request):
     if request.method == 'GET':
