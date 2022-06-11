@@ -102,3 +102,12 @@ class PostViewSet(viewsets.ModelViewSet):
 @login_required(login_url='Login')
 def profile(request, username):
     return render(request, 'awwards/profile.html')
+
+def user_profile(request, username):
+    userprof = User.objects.get(User, username=username)
+    if request.user == userprof:
+        return redirect('profile', username=request.user.username)
+    context = {
+        'userprof': userprof,
+    }
+    return render(request, 'awwards/userprofile.html', context)
