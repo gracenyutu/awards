@@ -43,7 +43,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap5",
     'rest_framework',
+    'pyuploadcare.dj',
 ]
+UPLOADCARE = {
+    'pub_key': '2b709bca64245dd9e55e',
+    'secret': '0a60851de5f3db2dc728',
+}
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
