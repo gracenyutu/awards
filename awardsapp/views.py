@@ -32,11 +32,8 @@ def search(request):
         results = Post.objects.filter(title__icontains=title).all()
         print(results)
         message = f'name'
-        params = {
-            'results': results,
-            'message': message
-        }
-        return render(request, 'results.html', params)
+        context = {'results': results,'message': message}
+        return render(request, 'results.html', context)
     else:
-        message = "You haven't searched for any image category"
-    return render(request, 'results.html', {'message': message})
+        message = "You haven't searched for any site"
+    return render(request, 'search.html', {'message': message})
