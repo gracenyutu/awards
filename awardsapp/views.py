@@ -98,3 +98,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+@login_required(login_url='Login')
+def profile(request, username):
+    return render(request, 'awwards/profile.html')
