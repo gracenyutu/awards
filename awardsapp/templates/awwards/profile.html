@@ -7,8 +7,10 @@
                 <img class="gallery-image" src="{{ user.profile.profile_pic.url }}"/>
                 <div class="card-body">
                     <h5 class="card-title" style="color: black;">{{user.username}}</h5>
-                    <hr>
-                    <p class="card-text" style="color: black;"> {{user.email}}</p>
+                    <div class="card-text">
+                        <p  style="color: black;"> {{user.bio}}</p>
+                        <p  style="color: black;"> {{user.email}}</p>
+                    </div>
                 </div>
             </div>
         </div>
