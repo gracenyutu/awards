@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-emjqiiks^3v-bk@v-)#@u_cat7cu0m2w0&%viye-9=k$+f!-$3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'agile-bastion-89836.herokuapp.com']
 
 
 # Application definition
@@ -54,6 +54,7 @@ UPLOADCARE = {
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,6 +135,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
