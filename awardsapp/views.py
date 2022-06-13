@@ -27,7 +27,7 @@ def home(request):
         posts = None
 
     if not request.user.is_authenticated:
-        return redirect("Login")
+        return redirect("login")
     return render(request, 'awwards/home.html',{'posts': posts, 'form': form, 'random_post': random_post})
 
 
