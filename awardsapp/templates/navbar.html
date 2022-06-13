@@ -32,13 +32,13 @@
                         <hr>
                         <a class="dropdown-item text-center" href="{% url 'edit' user.username  %}"> Edit profile</a>
                         <hr>
-                        <a href="{% url 'Logout' %}" class="text-secondary text-center dropdown-item">Log Out</a>
+                        <a href="{% url 'logout' %}" class="text-secondary text-center dropdown-item">Log Out</a>
 
 
                     </div>
                 </li>
                 {% else %}
-                <a href="{% url 'Login' %}" class="login btn btn-sm btn-info"> Register/Login </a>
+                <a href="{% url 'login' %}" class="login btn btn-sm btn-info"> Register/Login </a>
                 {% endif %}
             </ul>
         </div>

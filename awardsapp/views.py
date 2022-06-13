@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
-from .forms import SignupForm, ReviewForm, PostForm, UpdateUserForm, UpdateUserProfileForm
+from telnetlib import LOGOUT
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import SignupForm, RatingForm, PostForm, UpdateUserForm, UpdateUserProfileForm
 from django.contrib.auth import login, authenticate
-from .models import Profile, Post, Review
+from .models import Profile, Post, Rating
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from .serializers import ProfileSerializer, UserSerializer, PostSerializer
 from django.contrib.auth.models import User
+import random
 
 # Create your views here.
 def home(request):
@@ -13,8 +15,7 @@ def home(request):
         return redirect("Login")
     return render(request, 'awwards/home.html')
 
-def Login(request):
-    return render(request, 'registration/login.html')
+
 
 def signup(request):
     if request.method == 'POST':
@@ -25,7 +26,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect('home')
     else:
         form = SignupForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -45,20 +46,20 @@ def search(request):
 @login_required(login_url='Login')
 def site(request, post):
     post = Post.objects.get(title=post)
-    ratings = Review.objects.filter(user=request.user, post=post).first()
+    ratings = Rating.objects.filter(user=request.user, post=post).first()
     rating_status = None
     if ratings is None:
         rating_status = False
     else:
         rating_status = True
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = RatingForm(request.POST)
         if form.is_valid():
             rate = form.save(commit=False)
             rate.user = request.user
             rate.post = post
             rate.save()
-            post_ratings = Review.objects.filter(post=post)
+            post_ratings = Rating.objects.filter(post=post)
 
             design_ratings = [d.design for d in post_ratings]
             design_average = sum(design_ratings) / len(design_ratings)
@@ -78,14 +79,14 @@ def site(request, post):
             rate.save()
             return redirect(request.path_info)
     else:
-        form = ReviewForm()
+        form = RatingForm()
     context = {
+        'id' : id,
         'post': post,
         'rating_form': form,
         'rating_status': rating_status
-
     }
-    return render(request, 'site.html', context)
+    return render(request, 'awwards/site.html', context)
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -104,7 +105,7 @@ def profile(request, username):
     return render(request, 'awwards/profile.html')
 
 def user_profile(request, username):
-    userprof = User.objects.get(User, username=username)
+    userprof = get_object_or_404(User, username=username)
     if request.user == userprof:
         return redirect('profile', username=request.user.username)
     context = {
@@ -125,8 +126,9 @@ def edit_profile(request, username):
     else:
         user_form = UpdateUserForm(instance=request.user)
         prof_form = UpdateUserProfileForm(instance=request.user.profile)
-    params = {
+    context = {
         'user_form': user_form,
         'prof_form': prof_form
     }
-    return render(request, 'edit.html', params)
+    return render(request, 'awwards/edit.html', context)
+
