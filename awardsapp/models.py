@@ -7,7 +7,7 @@ from django.dispatch import receiver
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_pic = models.ImageField(upload_to='images/', default='default.png')
+    profile_pic = models.ImageField(upload_to='media/images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
     contact = models.EmailField(max_length=100, blank=True)
@@ -30,7 +30,7 @@ class Post(models.Model):
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo = models.ImageField(upload_to='posts/')
+    photo = models.ImageField(upload_to='media/posts/')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     date = models.DateTimeField(auto_now_add=True, blank=True)
 

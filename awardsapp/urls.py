@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
@@ -13,5 +14,4 @@ urlpatterns = [
     path('profile/<username>/', views.profile, name='profile'),
     path('<username>/profile', views.user_profile, name='userprofile'),
     path('profile/<username>/settings', views.edit_profile, name='edit'),
-    # re_path(r'^site/(?P<post>[a-zA-Z])/$', views.site, name="site"),
 ]
