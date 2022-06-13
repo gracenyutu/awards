@@ -1,4 +1,3 @@
-from telnetlib import LOGOUT
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignupForm, RatingForm, PostForm, UpdateUserForm, UpdateUserProfileForm
 from django.contrib.auth import login, authenticate
