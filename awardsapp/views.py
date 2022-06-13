@@ -53,10 +53,10 @@ def search(request):
         print(results)
         message = f'name'
         context = {'results': results,'message': message}
-        return render(request, 'results.html', context)
+        return render(request, 'awwards/search.html', context)
     else:
         message = "You haven't searched for any site"
-    return render(request, 'search.html', {'message': message})
+    return render(request, 'awwards/search.html', {'message': message})
 
 @login_required(login_url='Login')
 def site(request, post):
