@@ -3,8 +3,6 @@ from .forms import SignupForm, RatingForm, PostForm, UpdateUserForm, UpdateUserP
 from django.contrib.auth import login, authenticate
 from .models import Profile, Post, Rating
 from django.contrib.auth.decorators import login_required
-from rest_framework import viewsets
-from .serializers import ProfileSerializer, UserSerializer, PostSerializer
 from django.contrib.auth.models import User
 import random
 
@@ -104,18 +102,6 @@ def site(request, post):
         'rating_status': rating_status
     }
     return render(request, 'awwards/site.html', context)
-
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
 
 @login_required(login_url='Login')
 def profile(request, username):
