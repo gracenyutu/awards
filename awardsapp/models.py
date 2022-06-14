@@ -44,7 +44,7 @@ class Post(models.Model):
         self.delete()
 
     @classmethod
-    def search_project(cls, title):
+    def search_site(cls, title):
         return cls.objects.filter(title__icontains=title).all()
 
     @classmethod

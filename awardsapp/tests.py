@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your tests here.
 class TestProfile(TestCase):
     def setUp(self):
-        self.user = User(id=1, username='charles', password='wer2345uyq')
+        self.user = User(id=1, username='grace', password='free5461')
         self.user.save()
 
     def test_instance(self):
@@ -19,9 +19,9 @@ class TestProfile(TestCase):
 
 class PostTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(id=1, username='charles')
-        self.post = Post.objects.create(id=1, title='test post', photo='https://ucarecdn.com/0ccf61ff-508e-46c6-b713-db51daa6626e', description='desc',
-                                        user=self.user, url='http://ur.coml')
+        self.user = User.objects.create(id=1, username='grace')
+        self.post = Post.objects.create(id=1, title='test post', photo='https://commons.wikimedia.org/wiki/Commons:Quality_images', description='photos',
+                                        user=self.user, url='http://free.com')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.post, Post))
@@ -38,20 +38,20 @@ class PostTest(TestCase):
 
     def test_search_post(self):
         self.post.save()
-        post = Post.search_project('test')
+        post = Post.search_site('test')
         self.assertTrue(len(post) > 0)
 
     def test_delete_post(self):
         self.post.delete_post()
-        post = Post.search_project('test')
+        post = Post.search_site('test')
         self.assertTrue(len(post) < 1)
 
 
 class RatingTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(id=1, username='charles')
-        self.post = Post.objects.create(id=1, title='test post', photo='https://ucarecdn.com/0ccf61ff-508e-46c6-b713-db51daa6626e', description='desc',
-                                        user=self.user, url='http://ur.coml')
+        self.user = User.objects.create(id=1, username='grace')
+        self.post = Post.objects.create(id=1, title='test post', photo='https://commons.wikimedia.org/wiki/Commons:Quality_images', description='desc',
+                                        user=self.user, url='http://free.com')
         self.rating = Rating.objects.create(id=1, design=6, usability=7, content=9, user=self.user, post=self.post)
 
     def test_instance(self):
@@ -61,5 +61,3 @@ class RatingTest(TestCase):
         self.rating.save_rating()
         rating = Rating.objects.all()
         self.assertTrue(len(rating) > 0)
-
-    
