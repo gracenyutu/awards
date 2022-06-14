@@ -1,0 +1,31 @@
+{% extends 'awwards/base.html'%}
+{% block content %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{i}}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    <form class="container" method="POST" action="{%url 'upload' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+        <h1 class="text-center text-primary" >Upload Post</h1>
+        <div class="mb-3">
+            <label for="Title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="Title" placeholder="Title">
+          </div>
+          <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="Description" placeholder="Description">
+          </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Post</label>
+            <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="post"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+{% endblock %}

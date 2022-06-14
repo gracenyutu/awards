@@ -5,6 +5,7 @@ from .models import Profile, Post, Rating
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import random
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -135,3 +136,17 @@ def edit_profile(request, username):
     }
     return render(request, 'awwards/edit.html', context)
 
+@login_required(login_url='login')
+def upload(request):
+    profile = Profile.objects.get(user=request.user)
+    profileimage = profile.profile_pic.url
+    if request.method == 'POST':
+        post = request.FILES['post']
+        print(post)
+        profile = Profile.objects.get(user=request.user)
+        posts = Post.objects.create(user=request.user,photo=post)
+        if posts:
+            messages.success(request,"post uploaded successfully!")
+        else:
+            messages.success(request,"post failed!")
+    return render(request,'awwards/uploadpost.html',{'profileimage':profileimage})
