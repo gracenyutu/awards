@@ -21,9 +21,7 @@
             <ul class="navbar-nav navbar-right">
                 {% if user.is_authenticated%}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">{{ user.username|title }} 
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown">{{ user.username|title }} 
                        <img class="rounded-circle nav-img" src="{{ user.profile.profile_pic.url }}" width="22" height="22" class="rounded-circle" alt="..." style="width: 55px; height: 55px">
                     </a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
@@ -31,20 +29,19 @@
                         <hr>
                         <a class="dropdown-item text-center" href="{% url 'edit' user.username  %}"> Edit profile</a>
                         <hr>
+                        <a class="nav-link text-center dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            API
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'prof' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'projects' %}">Projects</a>
+                            <a class="dropdown-item" href="{% url 'user' %}">User</a>
+                            <a class="dropdown-item" href="{% url 'add' %}">add</a>
+                          </div>
+                        <hr>
                         <a href="{% url 'logout' %}" class="text-secondary text-center dropdown-item">Log Out</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      API
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{% url 'prof' %}">Profile</a>
-                      <a class="dropdown-item" href="{% url 'projects' %}">Projects</a>
-                      <a class="dropdown-item" href="{% url 'user' %}">User</a>
-                      <a class="dropdown-item" href="{% url 'add' %}">add</a>
-                    </div>
-                  </li>
                 {% else %}
                 <a href="{% url 'login' %}" class="login btn btn-sm btn-info"> Register/Login </a>
                 {% endif %}
