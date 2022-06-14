@@ -1,3 +1,4 @@
+from urllib.request import Request
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignupForm, RatingForm, PostForm, UpdateUserForm, UpdateUserProfileForm
 from django.contrib.auth import login, authenticate
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import random
 from django.contrib import messages
+import requests
 
 # Create your views here.
 def home(request):
@@ -27,9 +29,15 @@ def home(request):
     except Post.DoesNotExist:
         posts = None
 
+    url = 'http://127.0.0.1:8000/api/projects/'
+    res = requests.get(url)
+    if (res.status_code == 200):
+        response = res.json()
+        print(response)
+    
     if not request.user.is_authenticated:
         return redirect("login")
-    return render(request, 'awwards/home.html',{'posts': posts, 'form': form, 'random_post': random_post})
+    return render(request, 'awwards/home.html',{'posts': response, 'form': form, 'random_post': random_post})
 
 
 
