@@ -28,15 +28,9 @@ def home(request):
     except Post.DoesNotExist:
         posts = None
 
-    url = 'http://127.0.0.1:8000/api/projects/'
-    res = requests.get(url)
-    if (res.status_code == 200):
-        response = res.json()
-        print(response)
-    
     if not request.user.is_authenticated:
         return redirect("login")
-    return render(request, 'awwards/home.html',{'posts': response, 'form': form, 'random_post': random_post})
+    return render(request, 'awwards/home.html',{'posts': posts, 'form': form, 'random_post': random_post})
 
 
 
